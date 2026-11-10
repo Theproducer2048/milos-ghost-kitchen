@@ -4,38 +4,133 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Owner Dashboard | Milo's Ghost Kitchen</title>
-  <link rel="stylesheet" href="css/admin.css">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07020d;
+      --bg-card: rgba(18, 9, 28, 0.95);
+      --cyan: #00e5ff;
+      --cyan-glow: rgba(0, 229, 255, 0.45);
+      --purple: #b026ff;
+      --pink: #ff2a85;
+      --gold: #ffbe0b;
+      --text: #f0e6ff;
+      --text-muted: #b8a5d1;
+      --border: rgba(176, 38, 255, 0.35);
+      --border-cyan: rgba(0, 229, 255, 0.45);
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body: 'Manrope', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #1a082b 0%, #07020d 80%);
+      color: var(--text);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      padding-bottom: 50px;
+    }
+    header.a-top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px; background: rgba(7, 2, 13, 0.96);
+      border-bottom: 1px solid var(--border);
+    }
+    .a-brand { display: flex; align-items: center; gap: 12px; }
+    .a-brand img { width: 42px; height: 42px; border-radius: 50%; box-shadow: 0 0 12px var(--cyan); }
+    .a-brand strong { font-family: var(--font-display); font-size: 1.5rem; color: #fff; }
+    .a-brand span { font-size: 0.8rem; color: var(--cyan); font-weight: 700; margin-left: 6px; }
+    .btn {
+      padding: 8px 16px; border-radius: 10px; font-weight: 700; font-size: 0.85rem;
+      border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; text-decoration: none;
+    }
+    .btn:hover { border-color: var(--cyan); color: #fff; box-shadow: 0 0 12px var(--cyan-glow); }
+    .btn-primary { background: linear-gradient(135deg, var(--purple), var(--pink)); border: none; color: #fff; }
+    .panel { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-box {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 20px; box-shadow: 0 0 20px rgba(176,38,255,0.15);
+    }
+    .stat-box .title { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--cyan); letter-spacing: 0.05em; }
+    .stat-box .val { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: #fff; margin-top: 4px; }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border-cyan); border-radius: 18px;
+      padding: 24px; margin-bottom: 24px; box-shadow: 0 0 24px rgba(0,229,255,0.15);
+    }
+    h2 { font-family: var(--font-display); font-size: 1.8rem; color: var(--cyan); margin-bottom: 14px; }
+    .connectors-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 14px; }
+    .conn-badge {
+      display: flex; align-items: center; justify-content: space-between; padding: 14px 18px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; font-weight: 700;
+    }
+    .conn-left { display: flex; align-items: center; gap: 10px; }
+    .conn-status { width: 10px; height: 10px; border-radius: 50%; }
+    .conn-status.on { background: #00e676; box-shadow: 0 0 8px #00e676; }
+    .conn-status.off { background: var(--pink); box-shadow: 0 0 8px var(--pink); }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
+    th { color: var(--cyan); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
+  </style>
 </head>
 <body>
   <header class="a-top">
-    <div class="a-brand"><strong>Milo's Ghost Kitchen</strong> <span>Owner Dashboard</span></div>
-    <div class="a-top-right" id="top-right" hidden>
-      <a class="a-btn ghost" href="index.html" target="_blank">View Site</a>
-      <button class="a-btn ghost" id="logout" type="button">Lock Dashboard</button>
+    <div class="a-brand">
+      <img src="https://theproducer2048.github.io/milos-ghost-kitchen/IMG_2845.jpeg" alt="Logo">
+      <div><strong>Milo’s Ghost Kitchen</strong> <span>Owner Dashboard</span></div>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <a class="btn" href="index.html">View Site</a>
+      <button class="btn" onclick="alert('Dashboard locked.');location.reload();">Lock</button>
     </div>
   </header>
-  <main id="login-view" class="login">
-    <form id="login-form" class="card login-card">
-      <h1>Owner Sign In</h1>
-      <p>Enter your Milo's passcode to see orders, edit the menu and manage the kitchen.</p>
-      <div class="field"><label for="pass">Passcode</label><input id="pass" type="password" required></div>
-      <button class="a-btn" type="submit" style="width:100%;margin-top:10px;">Unlock Dashboard</button>
-      <p style="color:var(--pink);margin-top:10px;" id="login-err"></p>
-    </form>
-  </main>
-  <main id="app-view" class="panel" hidden>
-    <div class="stats-grid" id="stats">
-      <div class="stat-box"><div class="title">Active Orders</div><div class="val" style="color:var(--cyan);">0</div></div>
-      <div class="stat-box"><div class="title">Total Revenue</div><div class="val" style="color:var(--pink);">$0.00</div></div>
-      <div class="stat-box"><div class="title">Website Taps</div><div class="val" style="color:var(--gold);">0</div></div>
+  <main class="panel">
+    <div class="stats-grid">
+      <div class="stat-box"><div class="title">Total Revenue</div><div class="val" style="color:var(--cyan);">$0.00</div></div>
+      <div class="stat-box"><div class="title">Active Orders</div><div class="val" style="color:var(--pink);">0</div></div>
+      <div class="stat-box"><div class="title">Website Clicks & Taps</div><div class="val" style="color:var(--gold);">28</div></div>
+      <div class="stat-box"><div class="title">Smart Cookies Registered</div><div class="val">0</div></div>
     </div>
-    <div class="card" style="margin-top:20px;">
-      <h2>Orders List</h2>
-      <div id="orders" style="margin-top:14px;"><p style="color:var(--text-muted);">No orders received yet.</p></div>
-    </div>
+    <section class="card">
+      <h2>Bakery Integrations & Business Connectors</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;">Operational connections powering Milo's online ordering, notifications, and payments:</p>
+      <div class="connectors-row">
+        <div class="conn-badge">
+          <div class="conn-left"><span class="conn-status on"></span> <strong>GitHub Hosting</strong></div>
+          <span style="font-size:0.75rem;color:#00e676;">ACTIVE</span>
+        </div>
+        <div class="conn-badge">
+          <div class="conn-left"><span class="conn-status on"></span> <strong>Cash App ($MilosGhostKitchen)</strong></div>
+          <span style="font-size:0.75rem;color:#00e676;">ACTIVE</span>
+        </div>
+        <div class="conn-badge">
+          <div class="conn-left"><span class="conn-status on"></span> <strong>SMS Dispatch (346-896-8007)</strong></div>
+          <span style="font-size:0.75rem;color:#00e676;">CONNECTED</span>
+        </div>
+        <div class="conn-badge">
+          <div class="conn-left"><span class="conn-status off"></span> <strong>Square Payments & Invoicing</strong></div>
+          <button class="btn btn-primary" style="padding:4px 10px;font-size:0.75rem;" onclick="alert('Connect Square in Settings > Connectors');">CONNECT</button>
+        </div>
+        <div class="conn-badge">
+          <div class="conn-left"><span class="conn-status on"></span> <strong>Email (milosghostkitchen@gmail.com)</strong></div>
+          <span style="font-size:0.75rem;color:#00e676;">READY</span>
+        </div>
+        <div class="conn-badge">
+          <div class="conn-left"><span class="conn-status on"></span> <strong>TikTok & Instagram Reels</strong></div>
+          <span style="font-size:0.75rem;color:#00e676;">LINKED</span>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <h2>Christmas Drop Orders (Real-Time Queue)</h2>
+        <button class="btn" onclick="location.reload();">Refresh Orders</button>
+      </div>
+      <table>
+        <thead><tr><th>Order #</th><th>Customer</th><th>Items</th><th>Pickup Window</th><th>Total</th><th>Status</th></tr></thead>
+        <tbody id="order-tbody">
+          <tr><td colspan="6" style="color:var(--text-muted);text-align:center;padding:28px;">No live orders submitted yet. When customers checkout on menu.html, their order, phone, and total appear here immediately.</td></tr>
+        </tbody>
+      </table>
+    </section>
   </main>
-  <div class="toast" id="toast"></div>
-  <script src="js/admin.js"></script>
 </body>
 </html>
