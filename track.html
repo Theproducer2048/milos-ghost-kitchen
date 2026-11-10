@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Track Your Order | Milo's Ghost Kitchen</title>
+  <link rel="stylesheet" href="css/milo.css">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="lights"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i></div>
+  <header class="top-header">
+    <div class="status-bar"><span class="status-dot"></span> LIVE ORDER STATUS TRACKING</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="smart-cookies.html">Smart Cookies</a>
+      <a href="track.html" class="active">Track Order</a>
+      <a href="story.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <main class="wrap" style="padding:40px 20px;">
+    <h1 style="text-align:center;">Track Your <span style="color:var(--cyan);">Order.</span></h1>
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:30px;">Enter your MGK- order number and the phone number used at checkout to view your order status.</p>
+    <div class="checkout-card" style="max-width:600px;margin:0 auto;">
+      <form id="track-form">
+        <div class="field"><label for="track-code">Order Number</label><input id="track-code" required placeholder="MGK-12345" autocapitalize="characters"></div>
+        <div class="field"><label for="track-phone">Phone Number</label><input id="track-phone" type="tel" placeholder="346-896-8007"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;border:none;margin-top:10px;">Check Status</button>
+      </form>
+      <div id="track-results" style="margin-top:20px;"></div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <p>© 2026 Milo's Ghost Kitchen • Cleveland, TX (77327)</p>
+    <a href="admin.html" class="footer-owner-link">Manager & Owner Login</a>
+  </footer>
+  <div class="toast" id="toast"></div>
+  <script src="js/site.js"></script>
+</body>
+</html>
