@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Owner Dashboard | Milo's Ghost Kitchen</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Manager & Owner Dashboard | Milo's Ghost Kitchen</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/milo.css">
   <style>
     :root {
       --bg: #07020d;
@@ -36,7 +38,7 @@
       border-bottom: 1px solid var(--border);
     }
     .a-brand { display: flex; align-items: center; gap: 12px; }
-    .a-brand img { width: 42px; height: 42px; border-radius: 50%; box-shadow: 0 0 12px var(--cyan); }
+    .a-brand img { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 12px var(--cyan); object-fit: cover; }
     .a-brand strong { font-family: var(--font-display); font-size: 1.5rem; color: #fff; }
     .a-brand span { font-size: 0.8rem; color: var(--cyan); font-weight: 700; margin-left: 6px; }
     .btn {
@@ -44,112 +46,144 @@
       border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; text-decoration: none;
     }
     .btn:hover { border-color: var(--cyan); color: #fff; box-shadow: 0 0 12px var(--cyan-glow); }
-    .panel { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
-    .stat-box {
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 20px; box-shadow: 0 0 20px rgba(176,38,255,0.15);
-    }
-    .stat-box .title { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--cyan); letter-spacing: 0.05em; }
-    .stat-box .val { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: #fff; margin-top: 4px; }
+    .panel { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
     .card {
       background: var(--bg-card); border: 1px solid var(--border-cyan); border-radius: 18px;
       padding: 24px; margin-bottom: 24px; box-shadow: 0 0 24px rgba(0,229,255,0.15);
     }
     h2 { font-family: var(--font-display); font-size: 1.8rem; color: var(--cyan); margin-bottom: 14px; }
-    .connectors-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 14px; }
-    .conn-badge {
-      display: flex; align-items: center; justify-content: space-between; padding: 14px 18px;
-      background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; font-weight: 700;
+    .field { margin: 14px 0; }
+    .field label { display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
+    .field input {
+      width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border);
+      background: rgba(0,0,0,0.4); color: #fff; font-size: 1rem;
     }
-    .conn-left { display: flex; align-items: center; gap: 10px; }
-    .conn-status { width: 10px; height: 10px; border-radius: 50%; }
-    .conn-status.on { background: #00e676; box-shadow: 0 0 8px #00e676; }
-    table { width: 100%; border-collapse: collapse; margin-top: 14px; }
-    th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
-    th { color: var(--cyan); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
+    .gate-card { max-width: 440px; margin: 60px auto; padding: 32px; text-align: center; }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+    .info-list li {
+      padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: 12px; font-size: 0.95rem; line-height: 1.5;
+    }
+    .info-list strong { color: var(--cyan); }
   </style>
 </head>
 <body>
-  <header class="a-top">
-    <div class="a-brand">
-      <img src="https://theproducer2048.github.io/milos-ghost-kitchen/IMG_2845.jpeg" alt="Logo">
-      <div><strong>Milo’s Ghost Kitchen</strong> <span>Owner Dashboard</span></div>
-    </div>
-    <div style="display:flex;gap:10px;">
-      <a class="btn" href="index.html">View Site</a>
-      <button class="btn" onclick="alert('Dashboard locked.');location.reload();">Lock</button>
-    </div>
-  </header>
-  <main class="panel">
-    <div class="stats-grid">
-      <div class="stat-box"><div class="title">Total Revenue</div><div class="val" id="adm-rev" style="color:var(--cyan);">$0.00</div></div>
-      <div class="stat-box"><div class="title">Active Orders</div><div class="val" id="adm-orders" style="color:var(--pink);">0</div></div>
-      <div class="stat-box"><div class="title">Website Clicks & Taps</div><div class="val" id="adm-taps" style="color:var(--gold);">0</div></div>
-      <div class="stat-box"><div class="title">Smart Cookies Registered</div><div class="val">0</div></div>
-    </div>
-    <section class="card">
-      <h2>Bakery Integrations & Business Connectors</h2>
-      <p style="color:var(--text-muted);font-size:0.95rem;">Live operational connections powering Milo's online ordering, payments, and notifications:</p>
-      <div class="connectors-row">
-        <div class="conn-badge">
-          <div class="conn-left"><span class="conn-status on"></span> <strong>Square Payments (ID: LYMP9TF03Y7YH)</strong></div>
-          <span style="font-size:0.75rem;color:#00e676;">ACTIVE</span>
-        </div>
-        <div class="conn-badge">
-          <div class="conn-left"><span class="conn-status on"></span> <strong>GitHub Pages Hosting</strong></div>
-          <span style="font-size:0.75rem;color:#00e676;">ACTIVE</span>
-        </div>
-        <div class="conn-badge">
-          <div class="conn-left"><span class="conn-status on"></span> <strong>Cash App ($MilosGhostKitchen)</strong></div>
-          <span style="font-size:0.75rem;color:#00e676;">ACTIVE</span>
-        </div>
-        <div class="conn-badge">
-          <div class="conn-left"><span class="conn-status on"></span> <strong>SMS Dispatch (346-896-8007)</strong></div>
-          <span style="font-size:0.75rem;color:#00e676;">CONNECTED</span>
-        </div>
-        <div class="conn-badge">
-          <div class="conn-left"><span class="conn-status on"></span> <strong>Email (milosghostkitchen@gmail.com)</strong></div>
-          <span style="font-size:0.75rem;color:#00e676;">READY</span>
-        </div>
-        <div class="conn-badge">
-          <div class="conn-left"><span class="conn-status on"></span> <strong>TikTok & Instagram Channels</strong></div>
-          <span style="font-size:0.75rem;color:#00e676;">LINKED</span>
-        </div>
+  <div id="gate" class="card gate-card">
+    <h2 style="text-align:center;">Manager Passcode Gate</h2>
+    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:20px;">Enter your manager passcode to unlock the owner dashboard. You set and manage your passcode locally on your own device.</p>
+    <form id="gate-form">
+      <div class="field">
+        <label for="pass-input">Passcode</label>
+        <input id="pass-input" type="password" required autocomplete="current-password" placeholder="Enter your passcode">
       </div>
-    </section>
-    <section class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <h2>Christmas Drop Orders (Real-Time Queue)</h2>
-        <button class="btn" onclick="renderOrders();">Refresh Orders</button>
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:12px;margin-top:10px;">Unlock Dashboard</button>
+    </form>
+    <p id="gate-msg" style="color:var(--pink);font-size:0.85rem;margin-top:12px;"></p>
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <header class="a-top">
+      <div class="a-brand">
+        <img src="images/milos-logo.webp" alt="Milo's Ghost Kitchen Neon Logo" onerror="this.style.display='none'">
+        <div><strong>Milo’s Ghost Kitchen</strong> <span>Owner Dashboard</span></div>
       </div>
-      <table>
-        <thead><tr><th>Order #</th><th>Customer</th><th>Items</th><th>Pickup Window</th><th>Total</th><th>Status</th></tr></thead>
-        <tbody id="order-tbody">
-          <tr><td colspan="6" style="color:var(--text-muted);text-align:center;padding:28px;">No live orders submitted yet. When customers checkout on menu.html, their order, phone, and total appear here immediately.</td></tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
+      <div style="display:flex;gap:10px;">
+        <a class="btn" href="index.html">View Site</a>
+        <button class="btn" onclick="lockDashboard()">Lock</button>
+      </div>
+    </header>
+    <main class="panel">
+      <section class="card">
+        <h2>Order Inflow & Customer Channels</h2>
+        <p style="color:var(--text-muted);margin-bottom:14px;">Because this is a secure static website on GitHub Pages with no backend database, orders are not stored on a web server. Customer orders come in directly through text message and Square payments:</p>
+        <ul class="info-list">
+          <li><strong>Direct SMS Dispatch:</strong> Customers text their name, items, and pickup requests directly to <strong>346-896-8007</strong>.</li>
+          <li><strong>Card Payments via Square:</strong> Hosted through your official Square checkout link: <a href="https://square.link/u/US9u61Vv?src=sheet" target="_blank" style="color:var(--cyan);">https://square.link/u/US9u61Vv?src=sheet</a>.</li>
+          <li><strong>Cash App:</strong> Payments go directly to <strong>$MilosGhostKitchen</strong>.</li>
+          <li><strong>In-Person Payments:</strong> Collected upon pickup in Cleveland, TX (77327).</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Active Christmas Drop Menu & Pricing</h2>
+        <p style="color:var(--text-muted);margin-bottom:12px;">Current 4-item active lineup live on the website:</p>
+        <ul class="info-list">
+          <li><strong>Caramel Apple Loaded Cinnamon Roll:</strong> $7.00 (Tax: $0.58 • Total: $7.58)</li>
+          <li><strong>Biscoff Loaded Cinnamon Roll:</strong> $7.00 (Tax: $0.58 • Total: $7.58)</li>
+          <li><strong>Biscoff Kitty Krispies Treat:</strong> $5.00 (Tax: $0.41 • Total: $5.41)</li>
+          <li><strong>Oreo Kitty Krispies Treat:</strong> $5.00 (Tax: $0.41 • Total: $5.41)</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Cottage Food & Bakery Info</h2>
+        <ul class="info-list">
+          <li><strong>Sole Proprietorship:</strong> Darius Tillman (Sole Proprietor, Houston Area / Cleveland, TX 77327)</li>
+          <li><strong>Co-Owner & Menu Lead:</strong> Danielle Tillman (Menu design & Smart Cookies Program lead)</li>
+          <li><strong>DSHS Cottage Food Registry License:</strong> #20213</li>
+          <li><strong>Food Safety:</strong> ANAB Certified Food Handler</li>
+          <li><strong>Smart Cookies:</strong> Launching November 16, 2026 (A/B Honor Roll or improved grades; first 25 students per drop)</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Passcode Settings</h2>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:14px;">Set or update your personal dashboard passcode below. It is stored exclusively in your browser's private storage and is never sent to any server.</p>
+        <form id="set-pass-form">
+          <div class="field">
+            <label for="new-pass">New Passcode</label>
+            <input id="new-pass" type="password" required placeholder="Create a new passcode">
+          </div>
+          <button type="submit" class="btn" style="border-color:var(--cyan);color:#fff;">Save New Passcode</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
   <script>
-    function renderOrders() {
-      const orders = JSON.parse(localStorage.getItem('mgk_orders') || '[]');
-      const taps = JSON.parse(localStorage.getItem('mgk_taps') || '[]');
-      document.getElementById('adm-taps').textContent = taps.length;
-      document.getElementById('adm-orders').textContent = orders.length;
-      let rev = orders.reduce((s, o) => s + (o.total || 0), 0);
-      document.getElementById('adm-rev').textContent = '$' + rev.toFixed(2);
-      const tbody = document.getElementById('order-tbody');
-      if (orders.length > 0) {
-        tbody.innerHTML = '';
-        orders.forEach(o => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `<td><strong>${o.id}</strong></td><td>${o.name}<br><small>${o.phone}</small></td><td>${o.items.map(i=>i.qty+'x '+i.name).join(', ')}</td><td>${o.pickupDay}</td><td style="color:var(--pink);font-weight:800;">$${o.total.toFixed(2)}</td><td><span style="color:#00e676;font-weight:700;">RECEIVED</span></td>`;
-          tbody.appendChild(tr);
-        });
+    const PASS_KEY = 'mgk_manager_passcode';
+    function isUnlocked() {
+      return sessionStorage.getItem('mgk_admin_unlocked') === 'true';
+    }
+    function updateView() {
+      if (isUnlocked()) {
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+      } else {
+        document.getElementById('gate').style.display = 'block';
+        document.getElementById('dashboard').style.display = 'none';
       }
     }
-    renderOrders();
+    document.getElementById('gate-form').onsubmit = function(e) {
+      e.preventDefault();
+      const entered = document.getElementById('pass-input').value;
+      const stored = localStorage.getItem(PASS_KEY);
+      if (!stored) {
+        localStorage.setItem(PASS_KEY, entered);
+        sessionStorage.setItem('mgk_admin_unlocked', 'true');
+        alert('Passcode set! Dashboard unlocked.');
+        updateView();
+      } else if (entered === stored) {
+        sessionStorage.setItem('mgk_admin_unlocked', 'true');
+        updateView();
+      } else {
+        document.getElementById('gate-msg').textContent = 'Incorrect passcode. Please try again.';
+      }
+    };
+    document.getElementById('set-pass-form').onsubmit = function(e) {
+      e.preventDefault();
+      const val = document.getElementById('new-pass').value;
+      if (val) {
+        localStorage.setItem(PASS_KEY, val);
+        alert('Passcode updated successfully.');
+        document.getElementById('new-pass').value = '';
+      }
+    };
+    function lockDashboard() {
+      sessionStorage.removeItem('mgk_admin_unlocked');
+      updateView();
+    }
+    updateView();
   </script>
 </body>
 </html>
