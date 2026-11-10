@@ -92,8 +92,13 @@
       orders.unshift(order);
       localStorage.setItem('mgk_orders', JSON.stringify(orders));
       localStorage.removeItem('mgk_cart');
-      alert('Order ' + order.id + ' placed successfully! Redirecting...');
-      window.location.href = 'track.html?code=' + order.id + '&phone=' + encodeURIComponent(phone);
+      if (payment.includes('Square')) {
+        alert('Order recorded! Redirecting to official Square checkout...');
+        window.location.href = 'https://square.link/u/WPihlGag';
+      } else {
+        alert('Order ' + order.id + ' placed! Redirecting to tracking...');
+        window.location.href = 'track.html?code=' + order.id + '&phone=' + encodeURIComponent(phone);
+      }
     };
   }
   document.addEventListener('DOMContentLoaded', updateCartUI);
