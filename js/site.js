@@ -1,20 +1,19 @@
 (function() {
   'use strict';
   const DEFAULT_MENU = [
-    { id: 'roll-caramel-apple', name: 'Caramel Apple Loaded Cinnamon Roll', category: "Milo's Purr-fectly Loaded Cinnamon Rolls", price: 7.00, desc: 'Giant cinnamon roll topped with warm spiced apples, rich caramel drizzle, and cream cheese icing.', image: 'images/roll-caramel-apple.jpg' },
-    { id: 'roll-biscoff', name: 'Biscoff Loaded Cinnamon Roll', category: "Milo's Purr-fectly Loaded Cinnamon Rolls", price: 7.00, desc: 'Giant cinnamon roll topped with cream cheese icing, cookie butter, caramel sauce, and crunchy Biscoff cookies.', image: 'images/roll-biscoff.jpg' },
-    { id: 'treat-biscoff', name: 'Biscoff Kitty Krispies Treat', category: 'Kitty Krispies Treats', price: 5.00, desc: 'Crispy rice treat folded with gooey marshmallows, rich cookie butter, Biscoff crumbles, and caramel drizzle.', image: 'images/treat-biscoff.jpg' },
-    { id: 'treat-oreo', name: 'Oreo Kitty Krispies Treat', category: 'Kitty Krispies Treats', price: 5.00, desc: 'Crispy rice treat packed with marshmallows and crushed Oreo cookies, finished with dark chocolate drizzle.', image: 'images/treat-oreo.jpg' }
+    { id: 'roll-black-magic', name: 'Black Magic Loaded Cinnamon Roll', category: "Signature Loaded Cinnamon Rolls", price: 7.00, desc: 'Giant cinnamon roll loaded with rich dark chocolate, decadent cream cheese frosting, and signature spooky bakery magic.' },
+    { id: 'roll-biscoff', name: 'Biscoff Loaded Cinnamon Roll', category: "Signature Loaded Cinnamon Rolls", price: 7.00, desc: 'Giant cinnamon roll topped with cream cheese icing, warm cookie butter, caramel sauce, and crunchy Biscoff cookies.' },
+    { id: 'treat-biscoff', name: 'Biscoff Kitty Krispies Treat', category: 'Kitty Krispies Treats', price: 5.00, desc: 'Crispy rice treat folded with gooey marshmallows, rich cookie butter, Biscoff crumbles, and caramel drizzle.' },
+    { id: 'treat-oreo', name: 'Oreo Kitty Krispies Treat', category: 'Kitty Krispies Treats', price: 5.00, desc: 'Crispy rice treat packed with marshmallows, crushed Oreo cookies, and rich dark chocolate drizzle.' }
   ];
   function getCart() { try { return JSON.parse(localStorage.getItem('mgk_cart') || '{}'); } catch(e) { return {}; } }
   function saveCart(cart) { localStorage.setItem('mgk_cart', JSON.stringify(cart)); updateCartUI(); }
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    if (!t) return;
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(window._tt);
-    window._tt = setTimeout(() => t.classList.remove('show'), 2400);
+  function logTap(action, label) {
+    try {
+      const taps = JSON.parse(localStorage.getItem('mgk_taps') || '[]');
+      taps.push({ action, label, time: new Date().toISOString() });
+      localStorage.setItem('mgk_taps', JSON.stringify(taps));
+    } catch(e) {}
   }
   function updateCartUI() {
     const cart = getCart();
@@ -61,12 +60,41 @@
       const cart = getCart();
       cart[id] = (cart[id] || 0) + 1;
       saveCart(cart);
-      showToast('Added to cart!');
-    }
-    const copy = e.target.closest('.copy-handle');
-    if (copy) {
-      navigator.clipboard.writeText('@milosghostkitchen').then(() => showToast('TikTok handle copied!'));
+      logTap('add_to_cart', id);
+      alert('Added to cart!');
     }
   });
+  const form = document.getElementById('order-form');
+  if (form) {
+    form.onsubmit = function(e) {
+      e.preventDefault();
+      logTap('checkout_submit', 'Customer placed order');
+      const cart = getCart();
+      const ids = Object.keys(cart).filter(id => cart[id] > 0);
+      if (ids.length === 0) { alert('Cart is empty!'); return; }
+      const name = document.getElementById('order-name').value;
+      const phone = document.getElementById('order-phone').value;
+      const pickup = document.getElementById('order-pickup').value;
+      const payment = document.querySelector('input[name="payment_method"]:checked')?.value || 'Cash App';
+      let subtotal = 0;
+      const items = [];
+      ids.forEach(id => {
+        const item = DEFAULT_MENU.find(m => m.id === id);
+        if (item) {
+          subtotal += item.price * cart[id];
+          items.push({ name: item.name, qty: cart[id], total: item.price * cart[id] });
+        }
+      });
+      const tax = Math.round(subtotal * 8.25) / 100;
+      const total = subtotal + tax;
+      const order = { id: 'MGK-' + Math.floor(10000 + Math.random() * 90000), name, phone, pickupDay: pickup, paymentMethod: payment, items, total, status: 'received' };
+      const orders = JSON.parse(localStorage.getItem('mgk_orders') || '[]');
+      orders.unshift(order);
+      localStorage.setItem('mgk_orders', JSON.stringify(orders));
+      localStorage.removeItem('mgk_cart');
+      alert('Order ' + order.id + ' placed successfully! Redirecting...');
+      window.location.href = 'track.html?code=' + order.id + '&phone=' + encodeURIComponent(phone);
+    };
+  }
   document.addEventListener('DOMContentLoaded', updateCartUI);
 })();
