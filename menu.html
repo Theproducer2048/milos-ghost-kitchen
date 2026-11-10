@@ -1,2 +1,112 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Menu & Cart | Milo's Ghost Kitchen</title><link rel="stylesheet" href="css/milo.css"><style>main{max-width:1100px;margin:auto;padding:20px}nav{display:flex;gap:18px;flex-wrap:wrap;padding:18px}a{color:#00e5ff}.lineup{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:20px}.product,#checkout{padding:20px;border:1px solid #b026ff;border-radius:16px;min-width:0}.product img{display:block;width:100%;height:auto;border-radius:12px}button,input,select{font:inherit;padding:12px;max-width:100%}button{cursor:pointer}button:disabled{cursor:not-allowed}#checkout{margin-top:28px}label{display:block;margin:14px 0}input{display:block;width:100%;box-sizing:border-box}.cart-row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid #705080}.payment-options{display:flex;flex-wrap:wrap;gap:20px;margin:20px 0}.payment-options a{padding:12px;border:1px solid #00e5ff;border-radius:10px}#order-summary{white-space:pre-wrap;overflow-wrap:anywhere}footer{padding:24px}</style></head><body><header><p class="status-bar">TAKING CHRISTMAS ORDERS • CHRISTMAS DROP DAY: DECEMBER 13 • PICKUP ONLY</p><nav><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="smart-cookies.html">Smart Cookies</a><a href="track.html">Order Status</a><a href="watch.html">Watch</a><a href="contact.html">Contact</a><a href="#checkout">Cart</a></nav></header><main><img src="images/milos-logo.webp" alt="Milo's Ghost Kitchen neon logo" width="110" style="max-width:100%;height:auto" onerror="this.hidden=true"><h1>Current Lineup & Drop Treats</h1><p>Four Christmas treats, baked in limited batches. Pickup only in Cleveland, Texas (77327, Liberty County). Text your order to confirm availability and pickup details.</p><div class="lineup"><article class="product"><img src="images/roll-caramel-apple.jpg" alt="Caramel Apple loaded cinnamon roll" onerror="this.hidden=true"><h2>Caramel Apple loaded cinnamon roll</h2><p>$7.00</p><button type="button" class="add-to-cart-btn" data-id="roll-caramel-apple">Add to cart — $7.00</button></article><article class="product"><img src="images/roll-biscoff.jpg" alt="Biscoff loaded cinnamon roll" onerror="this.hidden=true"><h2>Biscoff loaded cinnamon roll</h2><p>$7.00</p><button type="button" class="add-to-cart-btn" data-id="roll-biscoff">Add to cart — $7.00</button></article><article class="product"><img src="images/treat-biscoff.jpg" alt="Biscoff Kitty Krispies Treat" onerror="this.hidden=true"><h2>Biscoff Kitty Krispies Treat</h2><p>$5.00</p><button type="button" class="add-to-cart-btn" data-id="treat-biscoff">Add to cart — $5.00</button></article><article class="product"><img src="images/treat-oreo.jpg" alt="Oreo Kitty Krispies Treat" onerror="this.hidden=true"><h2>Oreo Kitty Krispies Treat</h2><p>$5.00</p><button type="button" class="add-to-cart-btn" data-id="treat-oreo">Add to cart — $5.00</button></article></div><section id="checkout"><h2>Your cart</h2><div id="cart-items-container"></div><div aria-live="polite" aria-atomic="true"><p>Subtotal: <span id="calc-subtotal">$0.00</span></p><p>Texas sales tax (8.25%): <span id="calc-tax">$0.00</span></p><h3>Final total: <span id="calc-total">$0.00</span></h3><p id="cart-notice" role="status"></p></div><form id="order-form"><label for="order-name">Your name<input id="order-name" autocomplete="name" required maxlength="100"></label><label for="order-pickup">Preferred pickup<input id="order-pickup" value="December 13 Christmas Drop" required maxlength="160"></label><label for="payment-method">Payment choice<select id="payment-method"><option>Cash App ($MilosGhostKitchen)</option><option>Card through Square</option><option>Pay in person at pickup</option></select></label><button type="submit" id="submit-order-btn" disabled>Text this order to 346-896-8007</button></form><pre id="order-summary"></pre><p>Your text-message app opens with the order summary. You must press Send in that app. This website does not submit or save an order, take card details, verify payment, or create an order number. If texting does not open, copy the summary and text it to 346-896-8007.</p><h3>Payment choices</h3><div class="payment-options"><a href="https://cash.app/$MilosGhostKitchen" target="_blank" rel="noopener noreferrer">Cash App: $MilosGhostKitchen</a><a href="https://square.link/u/US9u61Vv?src=sheet" target="_blank" rel="noopener noreferrer">Pay by card through Square</a></div><p>You can also pay in person at pickup. Confirm your order by text. External payment pages do not automatically receive this cart or its final total; verify the amount with Milo's before paying. Opening a payment link does not send your order.</p><noscript><p>JavaScript is required for cart calculations. Text your item names and quantities to 346-896-8007 for an order total and pickup confirmation.</p></noscript></section></main><footer><p>Come hungry, leave family. • Milo's Ghost Kitchen • Darius Tillman, sole proprietor • DSHS Cottage Food Registry License #20213</p><a href="sms:+13468968007">Text 346-896-8007</a> • <a href="mailto:milosghostkitchen@gmail.com">Email Milo's</a></footer><script src="js/site.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Menu & Order Online | Milo's Ghost Kitchen</title>
+  <link rel="stylesheet" href="css/milo.css">
+</head>
+<body>
+  <header class="top-header">
+    <div style="text-align:center;">
+      <span class="status-pill"><span class="status-dot"></span> Taking Orders • Limited Drop Batches</span>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="menu.html" class="active">Menu</a>
+      <a href="smart-cookies.html">Smart Cookies</a>
+      <a href="track.html">Track Order</a>
+      <a href="watch.html">Watch</a>
+      <a href="story.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+      <a href="#checkout" class="nav-order">Cart</a>
+    </nav>
+  </header>
+
+  <main class="wrap" style="padding-top:40px;">
+    <div style="text-align:center;margin-bottom:30px;">
+      <h1 class="hero-title" style="font-size:clamp(2.2rem, 5vw, 3rem);margin-bottom:8px;">Current Bakery Lineup</h1>
+      <p style="color:var(--text-muted);">Baked fresh in limited batches. Pickup in Liberty County (77327). Payment in full at order.</p>
+    </div>
+    
+    <div class="menu-grid">
+      <article class="item-card">
+        <div class="item-img-wrap"><img src="images/IMG_2364.jpeg" alt="Caramel Apple Loaded Cinnamon Roll"></div>
+        <div class="item-body">
+          <div class="item-cat">Signature Loaded Cinnamon Rolls</div>
+          <h3 class="item-name">Caramel Apple</h3>
+          <p class="item-desc">Giant cinnamon roll loaded with spiced tender apples, creamy icing, and rich caramel drizzle.</p>
+          <div class="item-footer"><span class="item-price">$7</span><button type="button" class="btn btn-secondary add-to-cart-btn" data-id="roll-caramel-apple" style="padding:8px 16px;">Add to cart — $7</button></div>
+        </div>
+      </article>
+
+      <article class="item-card">
+        <div class="item-img-wrap"><img src="images/IMG_3055.png" alt="Biscoff Loaded Cinnamon Roll"></div>
+        <div class="item-body">
+          <div class="item-cat">Signature Loaded Cinnamon Rolls</div>
+          <h3 class="item-name">Biscoff</h3>
+          <p class="item-desc">Giant cinnamon roll topped with cream cheese icing, warm cookie butter, caramel sauce, and crunchy Biscoff cookies.</p>
+          <div class="item-footer"><span class="item-price">$7</span><button type="button" class="btn btn-secondary add-to-cart-btn" data-id="roll-biscoff" style="padding:8px 16px;">Add to cart — $7</button></div>
+        </div>
+      </article>
+
+      <article class="item-card">
+        <div class="item-img-wrap"><img src="images/IMG_3053.png" alt="Biscoff Kitty Krispies Treat"></div>
+        <div class="item-body">
+          <div class="item-cat">Kitty Krispies Treats</div>
+          <h3 class="item-name">Biscoff Kitty Krispies</h3>
+          <p class="item-desc">Crispy rice treat folded with gooey marshmallows, rich cookie butter, Biscoff crumbles, and caramel drizzle.</p>
+          <div class="item-footer"><span class="item-price">$5</span><button type="button" class="btn btn-secondary add-to-cart-btn" data-id="treat-biscoff" style="padding:8px 16px;">Add to cart — $5</button></div>
+        </div>
+      </article>
+
+      <article class="item-card">
+        <div class="item-img-wrap"><img src="images/IMG_3054.png" alt="Oreo Kitty Krispies Treat"></div>
+        <div class="item-body">
+          <div class="item-cat">Kitty Krispies Treats</div>
+          <h3 class="item-name">Oreo Kitty Krispies</h3>
+          <p class="item-desc">Crispy rice treat packed with marshmallows, crushed Oreo cookies, and rich dark chocolate drizzle.</p>
+          <div class="item-footer"><span class="item-price">$5</span><button type="button" class="btn btn-secondary add-to-cart-btn" data-id="treat-oreo" style="padding:8px 16px;">Add to cart — $5</button></div>
+        </div>
+      </article>
+    </div>
+
+    <section id="checkout" class="checkout-card">
+      <h2 style="font-family:var(--font-heading);font-size:2rem;color:var(--cyan);margin-bottom:12px;">Your Cart & Checkout</h2>
+      <div id="cart-items-container"></div>
+      <div class="cart-math">
+        <div style="display:flex;justify-content:space-between;"><span>Subtotal:</span><span id="calc-subtotal">$0.00</span></div>
+        <div style="display:flex;justify-content:space-between;margin:6px 0;"><span>Texas Sales Tax (8.25%):</span><span id="calc-tax">$0.00</span></div>
+        <div style="display:flex;justify-content:space-between;font-weight:800;font-size:1.35rem;color:var(--cyan);border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;margin-top:10px;">
+          <span>Final Total:</span><span id="calc-total">$0.00</span>
+        </div>
+      </div>
+
+      <form id="order-form">
+        <div class="field"><label for="order-name">Your Full Name</label><input id="order-name" required placeholder="Darius Tillman"></div>
+        <div class="field"><label for="order-phone">Phone Number (for pickup text)</label><input id="order-phone" type="tel" required placeholder="346-896-8007"></div>
+        <div class="field"><label for="order-pickup">Preferred Pickup / Notes</label><input id="order-pickup" required value="Next Drop — Confirm by text"></div>
+        <div class="field"><label>Payment Method</label>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.95rem;"><input type="radio" name="payment_method" value="Cash App" checked style="width:auto;"> Cash App ($MilosGhostKitchen)</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.95rem;"><input type="radio" name="payment_method" value="Card (Square)" style="width:auto;"> Card (Square Link)</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:0.95rem;"><input type="radio" name="payment_method" value="Pay in person" style="width:auto;"> Pay in person at pickup</label>
+          </div>
+        </div>
+        <button type="submit" id="submit-order-btn" class="btn btn-primary" style="width:100%;margin-top:18px;font-size:1.05rem;">Confirm & Text Order</button>
+      </form>
+
+      <div style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+        <a href="https://cash.app/$MilosGhostKitchen" target="_blank" class="btn btn-secondary">Open Cash App ($MilosGhostKitchen)</a>
+        <a href="https://square.link/u/US9u61Vv?src=sheet" target="_blank" class="btn btn-secondary">Open Square Payment Link</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Milo's Ghost Kitchen • Sole Proprietorship • Houston Area • Cleveland, TX (77327)</p>
+    <a href="admin.html" class="footer-owner-link">Manager & Owner Login</a>
+  </footer>
+  <script src="js/site.js"></script>
+</body>
+</html>
