@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Menu & Order Online | Milo's Ghost Kitchen</title>
+  <link rel="stylesheet" href="css/milo.css">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="lights"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i></div>
+  <header class="top-header">
+    <div class="status-bar"><span class="status-dot"></span> TAKING CHRISTMAS ORDERS • DROP DAY DEC 13</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="menu.html" class="active">Menu</a>
+      <a href="smart-cookies.html">Smart Cookies</a>
+      <a href="track.html">Track Order</a>
+      <a href="story.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+      <a href="#checkout" class="nav-order">Cart</a>
+    </nav>
+  </header>
+  <main class="wrap" style="padding-top:30px;">
+    <h1 style="text-align:center;">The Christmas <span style="color:var(--cyan);">Menu.</span></h1>
+    <p style="text-align:center;color:var(--text-muted);">Pickup in Liberty County. Payment in full at order. Text on arrival.</p>
+    <div class="menu-grid">
+      <article class="item-card">
+        <div class="item-img-wrap"><img src="images/roll-caramel-apple.jpg" alt="Caramel Apple Roll"></div>
+        <div class="item-body">
+          <div class="item-cat">Loaded Cinnamon Rolls</div>
+          <h3 class="item-name">Caramel Apple</h3>
+          <p class="item-desc">Giant cinnamon roll topped with warm spiced apples, rich caramel drizzle, and cream cheese icing.</p>
+          <div class="item-footer"><span class="item-price">$7</span><button class="add-btn add-to-cart-btn" data-id="roll-caramel-apple">Add to cart — $7</button></div>
+        </div>
+      </article>
+      <article class="item-card">
+        <div class="item-img-wrap"><img src="images/roll-biscoff.jpg" alt="Biscoff Roll"></div>
+        <div class="item-body">
+          <div class="item-cat">Loaded Cinnamon Rolls</div>
+          <h3 class="item-name">Biscoff Roll</h3>
+          <p class="item-desc">Giant cinnamon roll topped with cream cheese icing, cookie butter, caramel sauce, and crunchy Biscoff cookies.</p>
+          <div class="item-footer"><span class="item-price">$7</span><button class="add-btn add-to-cart-btn" data-id="roll-biscoff">Add to cart — $7</button></div>
+        </div>
+      </article>
+      <article class="item-card">
+        <div class="item-img-wrap"><img src="images/treat-biscoff.jpg" alt="Biscoff Treat"></div>
+        <div class="item-body">
+          <div class="item-cat">Kitty Krispies Treats</div>
+          <h3 class="item-name">Biscoff Treat</h3>
+          <p class="item-desc">Crispy rice treat folded with marshmallows, cookie butter, Biscoff crumbles, and caramel drizzle.</p>
+          <div class="item-footer"><span class="item-price">$5</span><button class="add-btn add-to-cart-btn" data-id="treat-biscoff">Add to cart — $5</button></div>
+        </div>
+      </article>
+      <article class="item-card">
+        <div class="item-img-wrap"><img src="images/treat-oreo.jpg" alt="Oreo Treat"></div>
+        <div class="item-body">
+          <div class="item-cat">Kitty Krispies Treats</div>
+          <h3 class="item-name">Oreo Treat</h3>
+          <p class="item-desc">Crispy rice treat packed with marshmallows, crushed Oreo cookies, and dark chocolate drizzle.</p>
+          <div class="item-footer"><span class="item-price">$5</span><button class="add-btn add-to-cart-btn" data-id="treat-oreo">Add to cart — $5</button></div>
+        </div>
+      </article>
+    </div>
+    <section id="checkout" class="checkout-card">
+      <h2>Your Cart & Checkout</h2>
+      <div id="cart-items-container"></div>
+      <div class="cart-math">
+        <div style="display:flex;justify-content:space-between;"><span>Subtotal:</span><span id="calc-subtotal">$0.00</span></div>
+        <div style="display:flex;justify-content:space-between;margin:4px 0;"><span>Texas Sales Tax (8.25%):</span><span id="calc-tax">$0.00</span></div>
+        <div style="display:flex;justify-content:space-between;font-weight:800;font-size:1.3rem;color:var(--cyan);border-top:1px solid var(--cyan);padding-top:8px;margin-top:8px;">
+          <span>Final Total:</span><span id="calc-total">$0.00</span>
+        </div>
+      </div>
+      <form id="order-form">
+        <div class="field"><label for="order-name">Your Full Name</label><input id="order-name" required placeholder="Darius Tillman"></div>
+        <div class="field"><label for="order-phone">Phone Number (for pickup text)</label><input id="order-phone" type="tel" required placeholder="346-896-8007"></div>
+        <div class="field"><label for="order-pickup">Preferred Pickup Day</label><input id="order-pickup" required value="Saturday, Dec 13 — Christmas Drop Day"></div>
+        <div class="field"><label>Payment Method</label>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+            <label><input type="radio" name="payment_method" value="Cash App" checked> Cash App ($MilosGhostKitchen)</label>
+            <label><input type="radio" name="payment_method" value="Card (Square)"> Card (Square)</label>
+            <label><input type="radio" name="payment_method" value="Pay in person"> Pay in person at pickup</label>
+          </div>
+        </div>
+        <button type="submit" id="submit-order-btn" class="btn btn-primary" style="width:100%;margin-top:14px;border:none;">Confirm & Place Christmas Order</button>
+      </form>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>© 2026 Milo's Ghost Kitchen. Sole Proprietorship • Houston Area • Cleveland, TX (77327).</p>
+    <a href="admin.html" class="footer-owner-link">Manager & Owner Login</a>
+  </footer>
+  <div class="toast" id="toast"></div>
+  <script src="js/site.js"></script>
+</body>
+</html>

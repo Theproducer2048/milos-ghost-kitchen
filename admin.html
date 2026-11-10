@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Owner Dashboard | Milo's Ghost Kitchen</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="a-top">
+    <div class="a-brand"><strong>Milo's Ghost Kitchen</strong> <span>Owner Dashboard</span></div>
+    <div class="a-top-right" id="top-right" hidden>
+      <a class="a-btn ghost" href="index.html" target="_blank">View Site</a>
+      <button class="a-btn ghost" id="logout" type="button">Lock Dashboard</button>
+    </div>
+  </header>
+  <main id="login-view" class="login">
+    <form id="login-form" class="card login-card">
+      <h1>Owner Sign In</h1>
+      <p>Enter your Milo's passcode to see orders, edit the menu and manage the kitchen.</p>
+      <div class="field"><label for="pass">Passcode</label><input id="pass" type="password" required></div>
+      <button class="a-btn" type="submit" style="width:100%;margin-top:10px;">Unlock Dashboard</button>
+      <p style="color:var(--pink);margin-top:10px;" id="login-err"></p>
+    </form>
+  </main>
+  <main id="app-view" class="panel" hidden>
+    <div class="stats-grid" id="stats">
+      <div class="stat-box"><div class="title">Active Orders</div><div class="val" style="color:var(--cyan);">0</div></div>
+      <div class="stat-box"><div class="title">Total Revenue</div><div class="val" style="color:var(--pink);">$0.00</div></div>
+      <div class="stat-box"><div class="title">Website Taps</div><div class="val" style="color:var(--gold);">0</div></div>
+    </div>
+    <div class="card" style="margin-top:20px;">
+      <h2>Orders List</h2>
+      <div id="orders" style="margin-top:14px;"><p style="color:var(--text-muted);">No orders received yet.</p></div>
+    </div>
+  </main>
+  <div class="toast" id="toast"></div>
+  <script src="js/admin.js"></script>
+</body>
+</html>

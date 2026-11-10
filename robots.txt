@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://theproducer2048.github.io/milos-ghost-kitchen/sitemap.xml
