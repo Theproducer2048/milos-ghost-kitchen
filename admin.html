@@ -14,6 +14,7 @@
       --purple: #b026ff;
       --pink: #ff2a85;
       --gold: #ffbe0b;
+      --green: #00e676;
       --text: #f0e6ff;
       --text-muted: #b8a5d1;
       --border: rgba(176, 38, 255, 0.35);
@@ -43,7 +44,6 @@
       border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer; text-decoration: none;
     }
     .btn:hover { border-color: var(--cyan); color: #fff; box-shadow: 0 0 12px var(--cyan-glow); }
-    .btn-primary { background: linear-gradient(135deg, var(--purple), var(--pink)); border: none; color: #fff; }
     .panel { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
     .stat-box {
@@ -65,7 +65,6 @@
     .conn-left { display: flex; align-items: center; gap: 10px; }
     .conn-status { width: 10px; height: 10px; border-radius: 50%; }
     .conn-status.on { background: #00e676; box-shadow: 0 0 8px #00e676; }
-    .conn-status.off { background: var(--pink); box-shadow: 0 0 8px var(--pink); }
     table { width: 100%; border-collapse: collapse; margin-top: 14px; }
     th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
     th { color: var(--cyan); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
@@ -84,17 +83,21 @@
   </header>
   <main class="panel">
     <div class="stats-grid">
-      <div class="stat-box"><div class="title">Total Revenue</div><div class="val" style="color:var(--cyan);">$0.00</div></div>
-      <div class="stat-box"><div class="title">Active Orders</div><div class="val" style="color:var(--pink);">0</div></div>
-      <div class="stat-box"><div class="title">Website Clicks & Taps</div><div class="val" style="color:var(--gold);">28</div></div>
+      <div class="stat-box"><div class="title">Total Revenue</div><div class="val" id="adm-rev" style="color:var(--cyan);">$0.00</div></div>
+      <div class="stat-box"><div class="title">Active Orders</div><div class="val" id="adm-orders" style="color:var(--pink);">0</div></div>
+      <div class="stat-box"><div class="title">Website Clicks & Taps</div><div class="val" id="adm-taps" style="color:var(--gold);">0</div></div>
       <div class="stat-box"><div class="title">Smart Cookies Registered</div><div class="val">0</div></div>
     </div>
     <section class="card">
       <h2>Bakery Integrations & Business Connectors</h2>
-      <p style="color:var(--text-muted);font-size:0.95rem;">Operational connections powering Milo's online ordering, notifications, and payments:</p>
+      <p style="color:var(--text-muted);font-size:0.95rem;">Live operational connections powering Milo's online ordering, payments, and notifications:</p>
       <div class="connectors-row">
         <div class="conn-badge">
-          <div class="conn-left"><span class="conn-status on"></span> <strong>GitHub Hosting</strong></div>
+          <div class="conn-left"><span class="conn-status on"></span> <strong>Square Payments (ID: LYMP9TF03Y7YH)</strong></div>
+          <span style="font-size:0.75rem;color:#00e676;">ACTIVE</span>
+        </div>
+        <div class="conn-badge">
+          <div class="conn-left"><span class="conn-status on"></span> <strong>GitHub Pages Hosting</strong></div>
           <span style="font-size:0.75rem;color:#00e676;">ACTIVE</span>
         </div>
         <div class="conn-badge">
@@ -106,15 +109,11 @@
           <span style="font-size:0.75rem;color:#00e676;">CONNECTED</span>
         </div>
         <div class="conn-badge">
-          <div class="conn-left"><span class="conn-status off"></span> <strong>Square Payments & Invoicing</strong></div>
-          <button class="btn btn-primary" style="padding:4px 10px;font-size:0.75rem;" onclick="alert('Connect Square in Settings > Connectors');">CONNECT</button>
-        </div>
-        <div class="conn-badge">
           <div class="conn-left"><span class="conn-status on"></span> <strong>Email (milosghostkitchen@gmail.com)</strong></div>
           <span style="font-size:0.75rem;color:#00e676;">READY</span>
         </div>
         <div class="conn-badge">
-          <div class="conn-left"><span class="conn-status on"></span> <strong>TikTok & Instagram Reels</strong></div>
+          <div class="conn-left"><span class="conn-status on"></span> <strong>TikTok & Instagram Channels</strong></div>
           <span style="font-size:0.75rem;color:#00e676;">LINKED</span>
         </div>
       </div>
@@ -122,7 +121,7 @@
     <section class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <h2>Christmas Drop Orders (Real-Time Queue)</h2>
-        <button class="btn" onclick="location.reload();">Refresh Orders</button>
+        <button class="btn" onclick="renderOrders();">Refresh Orders</button>
       </div>
       <table>
         <thead><tr><th>Order #</th><th>Customer</th><th>Items</th><th>Pickup Window</th><th>Total</th><th>Status</th></tr></thead>
@@ -132,5 +131,25 @@
       </table>
     </section>
   </main>
+  <script>
+    function renderOrders() {
+      const orders = JSON.parse(localStorage.getItem('mgk_orders') || '[]');
+      const taps = JSON.parse(localStorage.getItem('mgk_taps') || '[]');
+      document.getElementById('adm-taps').textContent = taps.length;
+      document.getElementById('adm-orders').textContent = orders.length;
+      let rev = orders.reduce((s, o) => s + (o.total || 0), 0);
+      document.getElementById('adm-rev').textContent = '$' + rev.toFixed(2);
+      const tbody = document.getElementById('order-tbody');
+      if (orders.length > 0) {
+        tbody.innerHTML = '';
+        orders.forEach(o => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td><strong>${o.id}</strong></td><td>${o.name}<br><small>${o.phone}</small></td><td>${o.items.map(i=>i.qty+'x '+i.name).join(', ')}</td><td>${o.pickupDay}</td><td style="color:var(--pink);font-weight:800;">$${o.total.toFixed(2)}</td><td><span style="color:#00e676;font-weight:700;">RECEIVED</span></td>`;
+          tbody.appendChild(tr);
+        });
+      }
+    }
+    renderOrders();
+  </script>
 </body>
 </html>
